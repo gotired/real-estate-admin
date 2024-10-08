@@ -7,8 +7,8 @@ import (
 
 type Property interface {
 	List() ([]model.Property, error)
-	Get(id uuid.UUID) (model.Property, error)
-	Create(id uuid.UUID, title string, description string, property_type string, location string, price int, photo string) error
-	Delete(id uuid.UUID) error
-	Update(id uuid.UUID, title string, description string, property_type string, location string, price int, photo string) error
+	Get(id *uuid.UUID) (*model.Property, error)
+	Create(id *uuid.UUID, title *string, description *string, property_type *string, location *string, price *int, photo *string) error
+	Delete(id *uuid.UUID) error
+	Update(id *uuid.UUID, title *string, description *string, property_type *string, location *string, price *int, photo *string) error
 }
