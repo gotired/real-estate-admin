@@ -10,7 +10,7 @@ import (
 	"github.com/gotired/real-estate-admin/server/internal/infrastructure/persistance/database"
 )
 
-func SetupServer() (*fiber.App, *model.CONFIG, *sql.DB) {
+func Setup() (*fiber.App, *model.CONFIG, *sql.DB) {
 
 	Config := config.Init()
 	db := database.Init(&Config.DB)
