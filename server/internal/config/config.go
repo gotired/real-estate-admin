@@ -6,14 +6,9 @@ import (
 	"strconv"
 
 	"github.com/gotired/real-estate-admin/server/internal/domain/model"
-	"github.com/joho/godotenv"
 )
 
 func Init() *model.CONFIG {
-	err := godotenv.Load()
-	if err != nil {
-		panic("Error loading .env file")
-	}
 
 	appConfig := model.APP{
 		Port: getEnv("PORT", false, "3000"),
