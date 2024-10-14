@@ -16,7 +16,7 @@ erDiagram
         owner uuid
         title string
         description string
-        propertyType string
+        type string
         location string
         price integer
         photo string
