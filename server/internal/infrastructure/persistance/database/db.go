@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/gotired/real-estate-admin/server/internal/domain/model"
+	"github.com/gotired/real-estate-admin/server/internal/infrastructure/persistance/database/migrations"
 )
 
 func Init(config *model.DATABASE) *sql.DB {
@@ -15,12 +16,13 @@ func Init(config *model.DATABASE) *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 
-	err = db.Ping()
-	if err != nil {
+	if err = db.Ping(); err != nil {
+		defer db.Close()
 		panic(err)
 	}
-	return db
 
+	migrations.Run(db)
+
+	return db
 }

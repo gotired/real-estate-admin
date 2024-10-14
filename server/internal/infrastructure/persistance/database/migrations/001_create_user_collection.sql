@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS user_collection (
+    id UUID PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    avatar VARCHAR(255)
+);
