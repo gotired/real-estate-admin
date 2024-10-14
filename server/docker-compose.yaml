@@ -1,30 +1,52 @@
 services:
-  app:
+  server_app:
     build: .
     ports:
       - "8080:8080"
-    restart: unless-stopped
+    restart: always
     depends_on:
-      - database
+      - server_database
+    env_file:
+      - .env
     networks:
       - server_network
 
-  database:
+  server_database:
     image: postgres:14
+    hostname: server_database
     container_name: postgres_db
     environment:
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DATABASE}
     ports:
-      - "5432:5432"
+      - "54325:5432"
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - server_network
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_USERNAME}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - server_network
+    env_file:
+      - .env
+
 volumes:
   postgres_data:
+  pgadmin_data:
 
 
 networks:

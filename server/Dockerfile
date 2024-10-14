@@ -1,17 +1,25 @@
-FROM golang:1.22.2 AS build
-
-WORKDIR /go/src/fiber
-
-COPY . .
-
-RUN go mod download
-
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o app .
-
-FROM alpine:latest
+FROM golang:1.22.2 AS builder
 
 WORKDIR /app
 
-COPY --from=build /go/src/fiber/app .
+COPY go.mod go.sum ./
+RUN go mod download
 
-CMD ["./app"]
+COPY . .
+
+RUN mkdir -p /app/temp_sql
+
+COPY ./internal/infrastructure/persistance/database/migrations/*.sql /app/temp_sql/
+
+WORKDIR /app/cmd
+
+RUN go build -o main main.go
+
+FROM ubuntu:latest
+
+COPY --from=builder /app/cmd/main /app/main
+COPY --from=builder /app/temp_sql /app/migrations
+
+RUN chmod +x /app/main
+
+ENTRYPOINT ["/app/main"]
