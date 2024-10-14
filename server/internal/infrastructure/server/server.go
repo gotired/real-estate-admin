@@ -8,6 +8,7 @@ import (
 	"github.com/gotired/real-estate-admin/server/internal/domain/model"
 	"github.com/gotired/real-estate-admin/server/internal/infrastructure/middleware"
 	"github.com/gotired/real-estate-admin/server/internal/infrastructure/persistance/database"
+	_ "github.com/lib/pq"
 )
 
 func Setup() (*fiber.App, *model.CONFIG, *sql.DB) {
