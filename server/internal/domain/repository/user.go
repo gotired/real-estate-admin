@@ -6,7 +6,8 @@ import (
 )
 
 type User interface {
-	List() ([]user.Base, error)
-	Create(name *string, email *string, avatar *string) error
-	Get(id *uuid.UUID) (*user.Base, error)
+	List(skip *int, limit *int) ([]user.Base, error)
+	Create(name string, email string, avatar string) error
+	Get(id uuid.UUID) (*user.Base, error)
+	GetByEmail(email string) (*uuid.UUID, error)
 }
