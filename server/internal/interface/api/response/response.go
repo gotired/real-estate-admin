@@ -5,10 +5,10 @@ import (
 	"github.com/gotired/real-estate-admin/server/internal/domain/model"
 )
 
-func Success(c *fiber.Ctx, statusCode int, data interface{}) error {
+func Success(c *fiber.Ctx, statusCode int, data interface{}, detail string) error {
 	return c.Status(statusCode).JSON(model.Response{
 		Status: "success",
-		Detail: "",
+		Detail: detail,
 		Data:   data,
 	})
 }
