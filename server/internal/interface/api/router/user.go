@@ -5,8 +5,8 @@ import (
 	"github.com/gotired/real-estate-admin/server/internal/interface/api/handler"
 )
 
-func SetupUserRouter(app fiber.Router, userHandler *handler.User) {
-	app.Get("/users", userHandler.List)
-	app.Get("/users/:id", userHandler.Get)
-	app.Post("/users", userHandler.Create)
+func SetupUserRouter(app fiber.Router, h *handler.User) {
+	app.Get("/users", h.List)
+	app.Get("/users/:id", h.Get)
+	app.Post("/users", h.Create)
 }
