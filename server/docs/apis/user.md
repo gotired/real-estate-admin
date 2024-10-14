@@ -73,7 +73,7 @@
     | name       | string        | user name                     |
     | email      | string        | user email                    |
     | avatar     | string        | user avatar                   |
-    | properties | array[string] | all properties that user owns |
+    | properties | array[object] | all properties that user owns |
 
     - `properties`
 
